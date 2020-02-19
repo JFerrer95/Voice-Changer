@@ -14,213 +14,133 @@
 
 import UIKit
 import AVFoundation
+import AudioKit
+import AudioKitUI
 
 class PlaySoundsViewController: UIViewController {
 
-    @IBOutlet weak var vaderButton: UIButton!
 
-    @IBOutlet weak var stopButton: UIButton!
+        @IBOutlet private var frequencyLabel: UILabel!
+        @IBOutlet private var amplitudeLabel: UILabel!
+        @IBOutlet private var noteNameWithSharpsLabel: UILabel!
+        @IBOutlet private var noteNameWithFlatsLabel: UILabel!
+        @IBOutlet private var audioInputPlot: EZAudioPlot!
 
-    var recordedAudioURL: URL!
-    var audioFile:AVAudioFile!
-    var audioEngine:AVAudioEngine!
-    var audioPlayerNode: AVAudioPlayerNode!
-    var stopTimer: Timer!
+        var mic: AKMicrophone!
+        var tracker: AKFrequencyTracker!
+        var silence: AKBooster!
 
-    enum ButtonType: Int {
-        case vader
-    }
+        let noteFrequencies = [16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5, 29.14, 30.87]
+        let noteNamesWithSharps = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"]
+        let noteNamesWithFlats = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
 
-    @IBAction func playSoundForButton(_ sender: UIButton) {
-        switch(ButtonType(rawValue: sender.tag)!) {
+        func setupPlot() {
+            let plot = AKNodeOutputPlot(mic, frame: audioInputPlot.bounds)
+            plot.translatesAutoresizingMaskIntoConstraints = false
+            plot.plotType = .rolling
+            plot.shouldFill = true
+            plot.shouldMirror = true
+            plot.color = UIColor.blue
+            audioInputPlot.addSubview(plot)
 
-        case .vader:
-            playSound(pitch: -200)
-
+            // Pin the AKNodeOutputPlot to the audioInputPlot
+            var constraints = [plot.leadingAnchor.constraint(equalTo: audioInputPlot.leadingAnchor)]
+            constraints.append(plot.trailingAnchor.constraint(equalTo: audioInputPlot.trailingAnchor))
+            constraints.append(plot.topAnchor.constraint(equalTo: audioInputPlot.topAnchor))
+            constraints.append(plot.bottomAnchor.constraint(equalTo: audioInputPlot.bottomAnchor))
+            constraints.forEach { $0.isActive = true }
         }
 
-        configureUI(.playing)
-    }
+        override func viewDidLoad() {
+            super.viewDidLoad()
 
-    @IBAction func stopButtonPressed(_ sender: AnyObject) {
-        stopAudio()
-    }
-
-    override func viewDidLoad() {
-        // Do any additional setup after loading the view.
-        super.viewDidLoad()
-
-        setupAudio()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configureUI(.notPlaying)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        stopAudio()
-    }
-
-}
-
-
-
-extension PlaySoundsViewController: AVAudioPlayerDelegate {
-
-    // MARK: Alerts
-
-    struct Alerts {
-        static let DismissAlert = "Dismiss"
-        static let RecordingDisabledTitle = "Recording Disabled"
-        static let RecordingDisabledMessage = "You've disabled this app from recording your microphone. Check Settings."
-        static let RecordingFailedTitle = "Recording Failed"
-        static let RecordingFailedMessage = "Something went wrong with your recording."
-        static let AudioRecorderError = "Audio Recorder Error"
-        static let AudioSessionError = "Audio Session Error"
-        static let AudioRecordingError = "Audio Recording Error"
-        static let AudioFileError = "Audio File Error"
-        static let AudioEngineError = "Audio Engine Error"
-    }
-
-    // MARK: PlayingState (raw values correspond to sender tags)
-
-    enum PlayingState { case playing, notPlaying }
-
-    // MARK: Audio Functions
-
-    func setupAudio() {
-        // initialize (recording) aud
-        do {
-            audioFile = try AVAudioFile(forReading: recordedAudioURL as URL)
-
-        } catch {
-            showAlert(Alerts.AudioFileError, message: String(describing: error))
-        }
-    }
-
-    func playSound(rate: Float? = nil, pitch: Float? = nil, echo: Bool = false, reverb: Bool = false) {
-
-        // initialize audio engine components
-        audioEngine = AVAudioEngine()
-        // node for playing audio
-        audioPlayerNode = AVAudioPlayerNode()
-        audioEngine.attach(audioPlayerNode)
-
-        // node for adjusting rate/pitch
-        let changeRatePitchNode = AVAudioUnitTimePitch()
-        if let pitch = pitch {
-            changeRatePitchNode.pitch = pitch
-
-        }
-        if let rate = rate {
-            changeRatePitchNode.rate = rate
-        }
-        audioEngine.attach(changeRatePitchNode)
-
-        // node for echo
-        let echoNode = AVAudioUnitDistortion()
-        echoNode.loadFactoryPreset(.multiEcho1)
-        audioEngine.attach(echoNode)
-
-        // node for reverb
-        let reverbNode = AVAudioUnitReverb()
-        reverbNode.loadFactoryPreset(.cathedral)
-        reverbNode.wetDryMix = 50
-        audioEngine.attach(reverbNode)
-
-
-
-        // connect nodes
-        if echo == true && reverb == true {
-            connectAudioNodes(audioPlayerNode, changeRatePitchNode, echoNode, reverbNode, audioEngine.outputNode)
-        } else if echo == true {
-            connectAudioNodes(audioPlayerNode, changeRatePitchNode, echoNode, audioEngine.outputNode)
-        } else if reverb == true {
-            connectAudioNodes(audioPlayerNode, changeRatePitchNode, reverbNode, audioEngine.outputNode)
-        } else {
-            connectAudioNodes(audioPlayerNode, changeRatePitchNode, audioEngine.outputNode)
+            AKSettings.audioInputEnabled = true
+            mic = AKMicrophone()
+            tracker = AKFrequencyTracker(mic)
+            silence = AKBooster(tracker, gain: 0)
         }
 
-        // schedule to play and start the engine!
-        audioPlayerNode.stop()
-        audioPlayerNode.scheduleFile(audioFile, at: nil) {
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
 
-            var delayInSeconds: Double = 0
-
-            if let lastRenderTime = self.audioPlayerNode.lastRenderTime, let playerTime = self.audioPlayerNode.playerTime(forNodeTime: lastRenderTime) {
-
-                if let rate = rate {
-                    delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate) / Double(rate)
-                } else {
-                    delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate)
-                }
+            AudioKit.output = silence
+            do {
+                try AudioKit.start()
+            } catch {
+                AKLog("AudioKit did not start!")
             }
-
-            // schedule a stop timer for when audio finishes playing
-            self.stopTimer = Timer(timeInterval: delayInSeconds, target: self, selector: #selector(PlaySoundsViewController.stopAudio), userInfo: nil, repeats: false)
-            RunLoop.main.add(self.stopTimer!, forMode: RunLoop.Mode.default)
+            setupPlot()
+            Timer.scheduledTimer(timeInterval: 0.1,
+                                 target: self,
+                                 selector: #selector(PlaySoundsViewController.updateUI),
+                                 userInfo: nil,
+                                 repeats: true)
         }
 
-        do {
-            try audioEngine.start()
-        } catch {
-            showAlert(Alerts.AudioEngineError, message: String(describing: error))
-            return
+        @objc func updateUI() {
+            if tracker.amplitude > 0.1 {
+                frequencyLabel.text = String(format: "%0.1f", tracker.frequency)
+
+                var frequency = Float(tracker.frequency)
+                while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
+                    frequency /= 2.0
+                }
+                while frequency < Float(noteFrequencies[0]) {
+                    frequency *= 2.0
+                }
+
+                var minDistance: Float = 10_000.0
+                var index = 0
+
+                for i in 0..<noteFrequencies.count {
+                    let distance = fabsf(Float(noteFrequencies[i]) - frequency)
+                    if distance < minDistance {
+                        index = i
+                        minDistance = distance
+                    }
+                }
+                let octave = Int(log2f(Float(tracker.frequency) / frequency))
+                noteNameWithSharpsLabel.text = "\(noteNamesWithSharps[index])\(octave)"
+                noteNameWithFlatsLabel.text = "\(noteNamesWithFlats[index])\(octave)"
+            }
+            amplitudeLabel.text = String(format: "%0.2f", tracker.amplitude)
         }
 
-        // play the recording!
+        // MARK: - Actions
+        @IBAction func didTapInputDevicesButton(_ sender: UIBarButtonItem) {
+            let inputDevices = InputDeviceTableViewController()
+            inputDevices.settingsDelegate = self
+            let navigationController = UINavigationController(rootViewController: inputDevices)
+            navigationController.preferredContentSize = CGSize(width: 300, height: 300)
+            navigationController.modalPresentationStyle = .popover
+            navigationController.popoverPresentationController!.delegate = self
+            self.present(navigationController, animated: true, completion: nil)
+        }
 
-        audioPlayerNode.play()
     }
 
-    @objc func stopAudio() {
+    // MARK: - UIPopoverPresentationControllerDelegate
+    extension PlaySoundsViewController: UIPopoverPresentationControllerDelegate {
 
-        if let audioPlayerNode = audioPlayerNode {
-            audioPlayerNode.stop()
+        func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+            return .none
         }
 
-        if let stopTimer = stopTimer {
-            stopTimer.invalidate()
-        }
-
-        configureUI(.notPlaying)
-
-        if let audioEngine = audioEngine {
-            audioEngine.stop()
-            audioEngine.reset()
+        func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+            popoverPresentationController.permittedArrowDirections = .up
+            popoverPresentationController.barButtonItem = navigationItem.rightBarButtonItem
         }
     }
 
-    // MARK: Connect List of Audio Nodes
+    // MARK: - InputDeviceDelegate
+    extension PlaySoundsViewController: InputDeviceDelegate {
 
-    func connectAudioNodes(_ nodes: AVAudioNode...) {
-        for x in 0..<nodes.count-1 {
-            audioEngine.connect(nodes[x], to: nodes[x+1], format: audioFile.processingFormat)
+        func didSelectInputDevice(_ device: AKDevice) {
+            do {
+                try mic.setDevice(device)
+            } catch {
+                AKLog("Error setting input device")
+            }
         }
+
     }
-
-    // MARK: UI Functions
-
-    func configureUI(_ playState: PlayingState) {
-        switch(playState) {
-        case .playing:
-            setPlayButtonsEnabled(false)
-            stopButton.isEnabled = true
-        case .notPlaying:
-            setPlayButtonsEnabled(true)
-            stopButton.isEnabled = false
-        }
-    }
-
-    func setPlayButtonsEnabled(_ enabled: Bool) {
-
-        vaderButton.isEnabled = enabled
-    }
-
-    func showAlert(_ title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Alerts.DismissAlert, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-}

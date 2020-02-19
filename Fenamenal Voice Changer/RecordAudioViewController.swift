@@ -116,15 +116,7 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate, AVAu
         print("Error while recording audio \(error!.localizedDescription)")
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-           //check to make sure the segue ID is correct
-       if segue.identifier == "playRecordingSegue"
-       {
-           let playSoundsVC = segue.destination as! PlaySoundsViewController //get the destination view controller
-        let recorderAudioURL = getFileURL()  //get the recorded file URL
-           playSoundsVC.recordedAudioURL = recorderAudioURL; //set the varible in the target VC to have the file URL
-       }
-    }
+
 
 
 

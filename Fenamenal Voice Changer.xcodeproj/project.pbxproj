@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FEE8B81C7EFBCF6704E9482 /* Pods_Fenamenal_Voice_Changer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFC50A43B30A5C04B68F1ADE /* Pods_Fenamenal_Voice_Changer.framework */; };
 		D10B754323FCCCEA00870BD2 /* PlaySoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B754223FCCCEA00870BD2 /* PlaySoundsViewController.swift */; };
 		D14A8D1A23FC8A9600DD5AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14A8D1923FC8A9600DD5AF2 /* AppDelegate.swift */; };
 		D14A8D1C23FC8A9600DD5AF2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14A8D1B23FC8A9600DD5AF2 /* SceneDelegate.swift */; };
@@ -14,9 +15,13 @@
 		D14A8D2123FC8A9600DD5AF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D14A8D1F23FC8A9600DD5AF2 /* Main.storyboard */; };
 		D14A8D2323FC8A9A00DD5AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D14A8D2223FC8A9A00DD5AF2 /* Assets.xcassets */; };
 		D14A8D2623FC8A9A00DD5AF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D14A8D2423FC8A9A00DD5AF2 /* LaunchScreen.storyboard */; };
+		D17FAD0F23FCF695005685F8 /* InputDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17FAD0E23FCF695005685F8 /* InputDeviceTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		242B9B745D108F141BF72FE9 /* Pods-Fenamenal Voice Changer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fenamenal Voice Changer.release.xcconfig"; path = "Target Support Files/Pods-Fenamenal Voice Changer/Pods-Fenamenal Voice Changer.release.xcconfig"; sourceTree = "<group>"; };
+		9B238FB03BB3CEA4658C7C1F /* Pods-Fenamenal Voice Changer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fenamenal Voice Changer.debug.xcconfig"; path = "Target Support Files/Pods-Fenamenal Voice Changer/Pods-Fenamenal Voice Changer.debug.xcconfig"; sourceTree = "<group>"; };
+		AFC50A43B30A5C04B68F1ADE /* Pods_Fenamenal_Voice_Changer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fenamenal_Voice_Changer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10B754223FCCCEA00870BD2 /* PlaySoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySoundsViewController.swift; sourceTree = "<group>"; };
 		D14A8D1623FC8A9600DD5AF2 /* Fenamenal Voice Changer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fenamenal Voice Changer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D14A8D1923FC8A9600DD5AF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +31,7 @@
 		D14A8D2223FC8A9A00DD5AF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D14A8D2523FC8A9A00DD5AF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D14A8D2723FC8A9A00DD5AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D17FAD0E23FCF695005685F8 /* InputDeviceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDeviceTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +39,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FEE8B81C7EFBCF6704E9482 /* Pods_Fenamenal_Voice_Changer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8EF89E4360AC9C684A2451F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AFC50A43B30A5C04B68F1ADE /* Pods_Fenamenal_Voice_Changer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D14A8D0D23FC8A9600DD5AF2 = {
 			isa = PBXGroup;
 			children = (
 				D14A8D1823FC8A9600DD5AF2 /* Fenamenal Voice Changer */,
 				D14A8D1723FC8A9600DD5AF2 /* Products */,
+				EB6B4D5E2A8407BB08A8C48A /* Pods */,
+				8EF89E4360AC9C684A2451F7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,11 +80,21 @@
 				D14A8D1D23FC8A9600DD5AF2 /* RecordAudioViewController.swift */,
 				D10B754223FCCCEA00870BD2 /* PlaySoundsViewController.swift */,
 				D14A8D1F23FC8A9600DD5AF2 /* Main.storyboard */,
+				D17FAD0E23FCF695005685F8 /* InputDeviceTableViewController.swift */,
 				D14A8D2223FC8A9A00DD5AF2 /* Assets.xcassets */,
 				D14A8D2423FC8A9A00DD5AF2 /* LaunchScreen.storyboard */,
 				D14A8D2723FC8A9A00DD5AF2 /* Info.plist */,
 			);
 			path = "Fenamenal Voice Changer";
+			sourceTree = "<group>";
+		};
+		EB6B4D5E2A8407BB08A8C48A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9B238FB03BB3CEA4658C7C1F /* Pods-Fenamenal Voice Changer.debug.xcconfig */,
+				242B9B745D108F141BF72FE9 /* Pods-Fenamenal Voice Changer.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,6 +104,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D14A8D2A23FC8A9A00DD5AF2 /* Build configuration list for PBXNativeTarget "Fenamenal Voice Changer" */;
 			buildPhases = (
+				B74EAF79944DA13E3824A6E8 /* [CP] Check Pods Manifest.lock */,
 				D14A8D1223FC8A9600DD5AF2 /* Sources */,
 				D14A8D1323FC8A9600DD5AF2 /* Frameworks */,
 				D14A8D1423FC8A9600DD5AF2 /* Resources */,
@@ -136,6 +164,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B74EAF79944DA13E3824A6E8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fenamenal Voice Changer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D14A8D1223FC8A9600DD5AF2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -145,6 +198,7 @@
 				D14A8D1A23FC8A9600DD5AF2 /* AppDelegate.swift in Sources */,
 				D14A8D1C23FC8A9600DD5AF2 /* SceneDelegate.swift in Sources */,
 				D10B754323FCCCEA00870BD2 /* PlaySoundsViewController.swift in Sources */,
+				D17FAD0F23FCF695005685F8 /* InputDeviceTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +340,7 @@
 		};
 		D14A8D2B23FC8A9A00DD5AF2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B238FB03BB3CEA4658C7C1F /* Pods-Fenamenal Voice Changer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -305,6 +360,7 @@
 		};
 		D14A8D2C23FC8A9A00DD5AF2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 242B9B745D108F141BF72FE9 /* Pods-Fenamenal Voice Changer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
