@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WR1-cE-iyn">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Record Audio View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="RecordAudioViewController" customModule="Fenamenal_Voice_Changer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TqU-HU-fgf">
+                                <rect key="frame" x="20" y="343" width="374" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <state key="normal" title="Play"/>
+                                <connections>
+                                    <segue destination="UyX-6b-Lec" kind="show" identifier="playRecordingSegue" id="q2f-ke-yxs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RBZ-VG-9Ee">
+                                <rect key="frame" x="20" y="64" width="374" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="rsF-Dm-BWr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <state key="normal" title="Tap to Record"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TqU-HU-fgf" secondAttribute="trailing" constant="20" id="1s9-4f-bvk"/>
+                            <constraint firstItem="RBZ-VG-9Ee" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="L8x-H0-V62"/>
+                            <constraint firstItem="RBZ-VG-9Ee" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Mpb-vU-5hf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RBZ-VG-9Ee" secondAttribute="trailing" constant="20" id="XEG-5P-2qa"/>
+                            <constraint firstItem="TqU-HU-fgf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mv7-dN-QeY"/>
+                            <constraint firstItem="RBZ-VG-9Ee" firstAttribute="centerX" secondItem="TqU-HU-fgf" secondAttribute="centerX" id="psI-BL-2sP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TqU-HU-fgf" secondAttribute="bottom" constant="343" id="tHW-CK-OSd"/>
+                            <constraint firstItem="RBZ-VG-9Ee" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="tiy-wv-O4J"/>
+                            <constraint firstItem="TqU-HU-fgf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="vwY-jo-3UT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="K7y-Gi-MTh"/>
+                    <connections>
+                        <outlet property="panSlider" destination="6yN-Rj-VVP" id="HF1-wZ-aY8"/>
+                        <outlet property="playButton" destination="TqU-HU-fgf" id="kYB-h2-dPr"/>
+                        <outlet property="recordButton" destination="RBZ-VG-9Ee" id="AKU-LE-oio"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1044.9275362318842" y="8.9673913043478262"/>
+        </scene>
+        <!--Play Sounds View Controller-->
+        <scene sceneID="yWI-Ap-a3d">
+            <objects>
+                <viewController id="UyX-6b-Lec" customClass="PlaySoundsViewController" customModule="Fenamenal_Voice_Changer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PwI-ZV-tTm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-1" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6yN-Rj-VVP">
+                                <rect key="frame" x="18" y="196" width="378" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="Zdr-Zv-cen"/>
+                                </constraints>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixY-1K-Gjv">
+                                <rect key="frame" x="184" y="119" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="playSoundForButton:" destination="UyX-6b-Lec" eventType="touchUpInside" id="H3Z-27-O0B"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vw5-6U-QtA">
+                                <rect key="frame" x="184" y="353" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="stopButtonPressed:" destination="UyX-6b-Lec" eventType="touchUpInside" id="ZtC-fg-0eF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="KgI-rZ-vfW"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ke4-76-LVy"/>
+                    <connections>
+                        <outlet property="stopButton" destination="vw5-6U-QtA" id="GPd-N4-lel"/>
+                        <outlet property="vaderButton" destination="ixY-1K-Gjv" id="96N-4b-kBT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ATd-kq-M8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1808.6956521739132" y="9.7826086956521738"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iTZ-DS-7FC">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WR1-cE-iyn" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1sK-4D-Dxh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="l6i-rg-YwP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O2b-k5-0Nt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="8.9673913043478262"/>
+        </scene>
+    </scenes>
+</document>
