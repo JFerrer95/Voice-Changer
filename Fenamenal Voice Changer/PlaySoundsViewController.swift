@@ -20,7 +20,9 @@ import AudioKitUI
 class PlaySoundsViewController: UIViewController {
 
 
-        @IBOutlet private var frequencyLabel: UILabel!
+        @IBOutlet var slider: UISlider!
+    @IBOutlet weak var slider2: UISlider!
+    @IBOutlet private var frequencyLabel: UILabel!
         @IBOutlet private var amplitudeLabel: UILabel!
         @IBOutlet private var noteNameWithSharpsLabel: UILabel!
         @IBOutlet private var noteNameWithFlatsLabel: UILabel!
@@ -29,6 +31,8 @@ class PlaySoundsViewController: UIViewController {
         var mic: AKMicrophone!
         var tracker: AKFrequencyTracker!
         var silence: AKBooster!
+        var moog: AKMoogLadder!
+        var reverb: AKReverb!
 
         let noteFrequencies = [16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5, 29.14, 30.87]
         let noteNamesWithSharps = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"]
@@ -57,13 +61,16 @@ class PlaySoundsViewController: UIViewController {
             AKSettings.audioInputEnabled = true
             mic = AKMicrophone()
             tracker = AKFrequencyTracker(mic)
-            silence = AKBooster(tracker, gain: 0)
+            silence = AKBooster(tracker, gain: 1)
+            moog = AKMoogLadder(silence, cutoffFrequency: Double(slider?.value ?? 5000), resonance: 0.6)
+            reverb = AKReverb(moog, dryWetMix: 0)
+
         }
 
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
 
-            AudioKit.output = silence
+            AudioKit.output = reverb
             do {
                 try AudioKit.start()
             } catch {
@@ -77,7 +84,22 @@ class PlaySoundsViewController: UIViewController {
                                  repeats: true)
         }
 
-        @objc func updateUI() {
+
+
+    @IBAction func sliderDidChange(_ sender: UISlider) {
+        moog.cutoffFrequency = Double(sender.value)
+    }
+
+    @IBAction func slider2(_ sender: UISlider) {
+
+        moog.resonance = Double(sender.value)
+    }
+
+    @IBAction func slider3(_ sender: UISlider) {
+        reverb.dryWetMix = Double(sender.value)
+
+    }
+    @objc func updateUI() {
             if tracker.amplitude > 0.1 {
                 frequencyLabel.text = String(format: "%0.1f", tracker.frequency)
 
