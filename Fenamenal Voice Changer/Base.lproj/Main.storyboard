@@ -170,15 +170,30 @@
                                     <action selector="sliderDidChange:" destination="UyX-6b-Lec" eventType="valueChanged" id="fbt-QS-sAm"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="22050" minValue="10" maxValue="22050" translatesAutoresizingMaskIntoConstraints="NO" id="pSq-Qd-Dtq">
-                                <rect key="frame" x="18" y="668" width="378" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="gTh-Ay-8Hf"/>
-                                </constraints>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zVB-FG-63b" customClass="Knob" customModule="Fenamenal_Voice_Changer" customModuleProvider="target">
+                                <rect key="frame" x="137" y="658" width="140" height="140"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="sliderDidChange:" destination="UyX-6b-Lec" eventType="valueChanged" id="HfR-8K-BGl"/>
+                                    <action selector="knobDidChange:" destination="UyX-6b-Lec" eventType="valueChanged" id="3fm-HE-ZgQ"/>
                                 </connections>
-                            </slider>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.0" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pjH-tQ-i3d">
+                                <rect key="frame" x="297" y="711" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                <connections>
+                                    <action selector="textFieldChanged:" destination="UyX-6b-Lec" eventType="editingChanged" id="6S3-Mn-Sqg"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -186,6 +201,7 @@
                             <constraint firstItem="Ltx-dD-dZI" firstAttribute="leading" secondItem="KgI-rZ-vfW" secondAttribute="leading" constant="20" id="45I-63-Cm1"/>
                             <constraint firstItem="bPB-lf-gYx" firstAttribute="height" secondItem="sAw-L0-wiW" secondAttribute="height" id="8aI-cI-wkr"/>
                             <constraint firstItem="bPB-lf-gYx" firstAttribute="top" secondItem="sAw-L0-wiW" secondAttribute="bottom" constant="8" id="9bw-9J-PyC"/>
+                            <constraint firstItem="KgI-rZ-vfW" firstAttribute="bottom" secondItem="zVB-FG-63b" secondAttribute="bottom" constant="64" id="BYT-7Z-YcV"/>
                             <constraint firstItem="VpJ-z3-dS5" firstAttribute="centerX" secondItem="bPB-lf-gYx" secondAttribute="centerX" id="Bna-o4-r4e"/>
                             <constraint firstItem="bPB-lf-gYx" firstAttribute="centerX" secondItem="sAw-L0-wiW" secondAttribute="centerX" id="CEI-mp-fhH"/>
                             <constraint firstItem="VpJ-z3-dS5" firstAttribute="leading" secondItem="bPB-lf-gYx" secondAttribute="leading" id="Dsb-87-5Hd"/>
@@ -194,8 +210,11 @@
                             <constraint firstItem="sAw-L0-wiW" firstAttribute="centerX" secondItem="1BB-uf-Cko" secondAttribute="centerX" id="Mxs-DG-ti8"/>
                             <constraint firstItem="KgI-rZ-vfW" firstAttribute="trailing" secondItem="1BB-uf-Cko" secondAttribute="trailing" constant="20" id="SmA-vm-FMs"/>
                             <constraint firstItem="VpJ-z3-dS5" firstAttribute="trailing" secondItem="bPB-lf-gYx" secondAttribute="trailing" id="TTK-kg-pWO"/>
+                            <constraint firstItem="KgI-rZ-vfW" firstAttribute="trailing" secondItem="zVB-FG-63b" secondAttribute="trailing" constant="137" id="XBf-YP-aJ8"/>
                             <constraint firstItem="1BB-uf-Cko" firstAttribute="top" secondItem="Ltx-dD-dZI" secondAttribute="bottom" constant="20" id="a9T-aL-gOW"/>
                             <constraint firstItem="VpJ-z3-dS5" firstAttribute="height" secondItem="bPB-lf-gYx" secondAttribute="height" id="fPv-xv-4A8"/>
+                            <constraint firstItem="zVB-FG-63b" firstAttribute="leading" secondItem="KgI-rZ-vfW" secondAttribute="leading" constant="137" id="hLz-b9-meW"/>
+                            <constraint firstItem="zVB-FG-63b" firstAttribute="top" secondItem="VpJ-z3-dS5" secondAttribute="bottom" constant="8" id="lga-Sz-l0U"/>
                             <constraint firstItem="VpJ-z3-dS5" firstAttribute="top" secondItem="bPB-lf-gYx" secondAttribute="bottom" constant="8" id="mCw-Wh-E2x"/>
                             <constraint firstItem="bPB-lf-gYx" firstAttribute="leading" secondItem="sAw-L0-wiW" secondAttribute="leading" id="mJo-qU-4lv"/>
                             <constraint firstItem="KgI-rZ-vfW" firstAttribute="trailing" secondItem="Ltx-dD-dZI" secondAttribute="trailing" constant="20" id="mX1-hm-Ghp"/>
@@ -217,10 +236,12 @@
                         <outlet property="amplitudeLabel" destination="Hoo-Ji-W3e" id="rkz-hW-dtx"/>
                         <outlet property="audioInputPlot" destination="1BB-uf-Cko" id="QXI-T5-UUZ"/>
                         <outlet property="frequencyLabel" destination="WDj-B0-pbj" id="wBR-Es-Hpf"/>
+                        <outlet property="knob" destination="zVB-FG-63b" id="nyX-gg-WOl"/>
                         <outlet property="noteNameWithFlatsLabel" destination="Jn2-WP-FIs" id="2la-AZ-MID"/>
                         <outlet property="noteNameWithSharpsLabel" destination="C6A-QH-byK" id="wx3-cf-jHg"/>
                         <outlet property="slider" destination="sAw-L0-wiW" id="rda-VL-j1H"/>
                         <outlet property="slider2" destination="bPB-lf-gYx" id="5ib-Fi-rMu"/>
+                        <outlet property="textField" destination="pjH-tQ-i3d" id="lIL-C9-aL3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATd-kq-M8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

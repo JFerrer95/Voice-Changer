@@ -15,6 +15,7 @@
 		D14A8D2123FC8A9600DD5AF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D14A8D1F23FC8A9600DD5AF2 /* Main.storyboard */; };
 		D14A8D2323FC8A9A00DD5AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D14A8D2223FC8A9A00DD5AF2 /* Assets.xcassets */; };
 		D14A8D2623FC8A9A00DD5AF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D14A8D2423FC8A9A00DD5AF2 /* LaunchScreen.storyboard */; };
+		D162E49723FF93EA004B41F3 /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = D162E49623FF93EA004B41F3 /* Knob.swift */; };
 		D17FAD0F23FCF695005685F8 /* InputDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17FAD0E23FCF695005685F8 /* InputDeviceTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		D14A8D2223FC8A9A00DD5AF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D14A8D2523FC8A9A00DD5AF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D14A8D2723FC8A9A00DD5AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D162E49623FF93EA004B41F3 /* Knob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
 		D17FAD0E23FCF695005685F8 /* InputDeviceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDeviceTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +84,7 @@
 				D14A8D1F23FC8A9600DD5AF2 /* Main.storyboard */,
 				D17FAD0E23FCF695005685F8 /* InputDeviceTableViewController.swift */,
 				D14A8D2223FC8A9A00DD5AF2 /* Assets.xcassets */,
+				D162E49623FF93EA004B41F3 /* Knob.swift */,
 				D14A8D2423FC8A9A00DD5AF2 /* LaunchScreen.storyboard */,
 				D14A8D2723FC8A9A00DD5AF2 /* Info.plist */,
 			);
@@ -195,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D14A8D1E23FC8A9600DD5AF2 /* RecordAudioViewController.swift in Sources */,
+				D162E49723FF93EA004B41F3 /* Knob.swift in Sources */,
 				D14A8D1A23FC8A9600DD5AF2 /* AppDelegate.swift in Sources */,
 				D14A8D1C23FC8A9600DD5AF2 /* SceneDelegate.swift in Sources */,
 				D10B754323FCCCEA00870BD2 /* PlaySoundsViewController.swift in Sources */,

@@ -27,8 +27,10 @@ class PlaySoundsViewController: UIViewController {
         @IBOutlet private var noteNameWithSharpsLabel: UILabel!
         @IBOutlet private var noteNameWithFlatsLabel: UILabel!
         @IBOutlet private var audioInputPlot: EZAudioPlot!
+    @IBOutlet weak var knob: Knob!
+    @IBOutlet weak var textField: UITextField!
 
-        var mic: AKMicrophone!
+    var mic: AKMicrophone!
         var tracker: AKFrequencyTracker!
         var silence: AKBooster!
         var moog: AKMoogLadder!
@@ -84,7 +86,19 @@ class PlaySoundsViewController: UIViewController {
                                  repeats: true)
         }
 
+    @IBAction func knobDidChange(_ sender: Knob) {
+         let number = Float(sender.value)
+        if number >= 0 && number <= 10 {
+            textField.text = String(number)
+        }
+    }
 
+    @IBAction func textFieldChanged(_ sender: UITextField) {
+        guard let text = sender.text, let number = Float(text) else { return }
+        if number >= 0 && number <= 10 {
+            knob.setValue(number, animated: true)
+        }
+    }
 
     @IBAction func sliderDidChange(_ sender: UISlider) {
         moog.cutoffFrequency = Double(sender.value)
@@ -152,6 +166,11 @@ class PlaySoundsViewController: UIViewController {
             popoverPresentationController.permittedArrowDirections = .up
             popoverPresentationController.barButtonItem = navigationItem.rightBarButtonItem
         }
+
+
+
+
+
     }
 
     // MARK: - InputDeviceDelegate
