@@ -33,12 +33,12 @@ class RecordAudioViewController: UIViewController {
     var player: AKPlayer!
     var tape: AKAudioFile!
     var micBooster: AKBooster!
-    var moogLadder: AKMoogLadder!
+    var reverb: AKReverb!
     var mainMixer: AKMixer!
 
     let mic = AKMicrophone()
     var state = State.readyToRecord
-
+    var effectsPanel = EffectsPanel()
 
 
 
@@ -86,9 +86,9 @@ class RecordAudioViewController: UIViewController {
         player.isLooping = true
         player.completionHandler = playingEnded
 
-        moogLadder = AKMoogLadder(player)
+        reverb = AKReverb(player)
         
-        mainMixer = AKMixer(moogLadder, micBooster)
+        mainMixer = AKMixer(reverb, micBooster)
 
         AudioKit.output = mainMixer
         do {
@@ -163,12 +163,16 @@ class RecordAudioViewController: UIViewController {
         state = .readyToPlay
         navigationController?.title = String(recordedDuration!)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        
+
         UIView.animate(withDuration: 0.5, animations: {
             self.recordPlayButton.translatesAutoresizingMaskIntoConstraints = false
             self.outputPlot?.translatesAutoresizingMaskIntoConstraints = false
+            self.effectsPanel.translatesAutoresizingMaskIntoConstraints = false
             self.recordPlayButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
             self.outputPlot?.bottomAnchor.constraint(equalTo: self.recordPlayButton.topAnchor, constant: -20).isActive = true
+
+            self.view.backgroundColor = .black
+            self.effectsPanel.setupViews()
             self.view.layoutIfNeeded()
         })
        }
@@ -178,6 +182,14 @@ class RecordAudioViewController: UIViewController {
         navigationController?.title = "Ready to record"
         recordPlayButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
         micBooster.gain = 0
+        effectsPanel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(effectsPanel)
+        effectsPanel.bottomAnchor.constraint(equalTo: outputPlot?.topAnchor ?? view.bottomAnchor, constant: -20).isActive = true
+        effectsPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        effectsPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        effectsPanel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        effectsPanel.setupViews()
+
 
     }
 
