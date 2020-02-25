@@ -135,7 +135,7 @@ class RecordAudioViewController: UIViewController {
                case .readyToPlay :
                    player.play()
                     navigationController?.title = "Playing..."
-                   recordPlayButton.setBackgroundImage(UIImage(systemName: "stop.fill"), for: .normal)
+                   recordPlayButton.setBackgroundImage(UIImage(systemName: "stop"), for: .normal)
                    state = .playing
                    outputPlot?.node = player
                    print(tape.url.absoluteString)
@@ -162,6 +162,15 @@ class RecordAudioViewController: UIViewController {
         recordPlayButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
         state = .readyToPlay
         navigationController?.title = String(recordedDuration!)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.recordPlayButton.translatesAutoresizingMaskIntoConstraints = false
+            self.outputPlot?.translatesAutoresizingMaskIntoConstraints = false
+            self.recordPlayButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
+            self.outputPlot?.bottomAnchor.constraint(equalTo: self.recordPlayButton.topAnchor, constant: -20).isActive = true
+            self.view.layoutIfNeeded()
+        })
        }
 
     func setupUIForRecording () {
@@ -169,6 +178,7 @@ class RecordAudioViewController: UIViewController {
         navigationController?.title = "Ready to record"
         recordPlayButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
         micBooster.gain = 0
+
     }
 
 }
