@@ -17,171 +17,158 @@ import AVFoundation
 import AudioKit
 import AudioKitUI
 
-class PlaySoundsViewController: UIViewController {
+
+enum State {
+       case readyToRecord
+       case recording
+       case readyToPlay
+       case playing
+
+   }
+
+class RecordAudioViewController: UIViewController {
+
+    var micMixer: AKMixer!
+    var recorder: AKNodeRecorder!
+    var player: AKPlayer!
+    var tape: AKAudioFile!
+    var micBooster: AKBooster!
+    var moogLadder: AKMoogLadder!
+    var mainMixer: AKMixer!
+
+    let mic = AKMicrophone()
+    var state = State.readyToRecord
 
 
-        @IBOutlet var slider: UISlider!
-    @IBOutlet weak var slider2: UISlider!
-    @IBOutlet private var frequencyLabel: UILabel!
-        @IBOutlet private var amplitudeLabel: UILabel!
-        @IBOutlet private var noteNameWithSharpsLabel: UILabel!
-        @IBOutlet private var noteNameWithFlatsLabel: UILabel!
-        @IBOutlet private var audioInputPlot: EZAudioPlot!
-    @IBOutlet weak var knob: Knob!
-    @IBOutlet weak var textField: UITextField!
 
-    var mic: AKMicrophone!
-        var tracker: AKFrequencyTracker!
-        var silence: AKBooster!
-        var moog: AKMoogLadder!
-        var reverb: AKReverb!
 
-        let noteFrequencies = [16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5, 29.14, 30.87]
-        let noteNamesWithSharps = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"]
-        let noteNamesWithFlats = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
+    @IBOutlet weak var outputPlot: AKNodeOutputPlot?
+    @IBOutlet weak var recordPlayButton: UIButton!
 
-        func setupPlot() {
-            let plot = AKNodeOutputPlot(mic, frame: audioInputPlot.bounds)
-            plot.translatesAutoresizingMaskIntoConstraints = false
-            plot.plotType = .rolling
-            plot.shouldFill = true
-            plot.shouldMirror = true
-            plot.color = UIColor.blue
-            audioInputPlot.addSubview(plot)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        outputPlot?.node = mic
 
-            // Pin the AKNodeOutputPlot to the audioInputPlot
-            var constraints = [plot.leadingAnchor.constraint(equalTo: audioInputPlot.leadingAnchor)]
-            constraints.append(plot.trailingAnchor.constraint(equalTo: audioInputPlot.trailingAnchor))
-            constraints.append(plot.topAnchor.constraint(equalTo: audioInputPlot.topAnchor))
-            constraints.append(plot.bottomAnchor.constraint(equalTo: audioInputPlot.bottomAnchor))
-            constraints.forEach { $0.isActive = true }
-        }
-
-        override func viewDidLoad() {
-            super.viewDidLoad()
-
-            AKSettings.audioInputEnabled = true
-            mic = AKMicrophone()
-            tracker = AKFrequencyTracker(mic)
-            silence = AKBooster(tracker, gain: 1)
-            moog = AKMoogLadder(silence, cutoffFrequency: Double(slider?.value ?? 5000), resonance: 0.6)
-            reverb = AKReverb(moog, dryWetMix: 0)
-
-        }
-
-        override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
-
-            AudioKit.output = reverb
-            do {
-                try AudioKit.start()
-            } catch {
-                AKLog("AudioKit did not start!")
-            }
-            setupPlot()
-            Timer.scheduledTimer(timeInterval: 0.1,
-                                 target: self,
-                                 selector: #selector(PlaySoundsViewController.updateUI),
-                                 userInfo: nil,
-                                 repeats: true)
-        }
-
-    @IBAction func knobDidChange(_ sender: Knob) {
-         let number = Float(sender.value)
-        if number >= 0 && number <= 10 {
-            textField.text = String(number)
-        }
-    }
-
-    @IBAction func textFieldChanged(_ sender: UITextField) {
-        guard let text = sender.text, let number = Float(text) else { return }
-        if number >= 0 && number <= 10 {
-            knob.setValue(number, animated: true)
-        }
-    }
-
-    @IBAction func sliderDidChange(_ sender: UISlider) {
-        moog.cutoffFrequency = Double(sender.value)
-    }
-
-    @IBAction func slider2(_ sender: UISlider) {
-
-        moog.resonance = Double(sender.value)
-    }
-
-    @IBAction func slider3(_ sender: UISlider) {
-        reverb.dryWetMix = Double(sender.value)
-
-    }
-    @objc func updateUI() {
-            if tracker.amplitude > 0.1 {
-                frequencyLabel.text = String(format: "%0.1f", tracker.frequency)
-
-                var frequency = Float(tracker.frequency)
-                while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
-                    frequency /= 2.0
-                }
-                while frequency < Float(noteFrequencies[0]) {
-                    frequency *= 2.0
-                }
-
-                var minDistance: Float = 10_000.0
-                var index = 0
-
-                for i in 0..<noteFrequencies.count {
-                    let distance = fabsf(Float(noteFrequencies[i]) - frequency)
-                    if distance < minDistance {
-                        index = i
-                        minDistance = distance
-                    }
-                }
-                let octave = Int(log2f(Float(tracker.frequency) / frequency))
-                noteNameWithSharpsLabel.text = "\(noteNamesWithSharps[index])\(octave)"
-                noteNameWithFlatsLabel.text = "\(noteNamesWithFlats[index])\(octave)"
-            }
-            amplitudeLabel.text = String(format: "%0.2f", tracker.amplitude)
-        }
-
-        // MARK: - Actions
-        @IBAction func didTapInputDevicesButton(_ sender: UIBarButtonItem) {
-            let inputDevices = InputDeviceTableViewController()
-            inputDevices.settingsDelegate = self
-            let navigationController = UINavigationController(rootViewController: inputDevices)
-            navigationController.preferredContentSize = CGSize(width: 300, height: 300)
-            navigationController.modalPresentationStyle = .popover
-            navigationController.popoverPresentationController!.delegate = self
-            self.present(navigationController, animated: true, completion: nil)
-        }
+        setupUIForRecording()
 
     }
 
-    // MARK: - UIPopoverPresentationControllerDelegate
-    extension PlaySoundsViewController: UIPopoverPresentationControllerDelegate {
 
-        func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-            return .none
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        // Clean tempFiles !
+        AKAudioFile.cleanTempDirectory()
+
+        // Session settings
+        AKSettings.bufferLength = .medium
+        
+        do {
+            try AKSettings.setSession(category: .playAndRecord, with: .allowBluetoothA2DP)
+        } catch {
+            AKLog("Could not set session category.")
         }
+        
+        AKSettings.defaultToSpeaker = true
 
-        func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-            popoverPresentationController.permittedArrowDirections = .up
-            popoverPresentationController.barButtonItem = navigationItem.rightBarButtonItem
+        // Patching
+        let monoToStereo = AKStereoFieldLimiter(mic, amount: 1)
+        micMixer = AKMixer(monoToStereo)
+        micBooster = AKBooster(micMixer)
+
+        // Will set the level of microphone monitoring
+        micBooster.gain = 0
+        recorder = try? AKNodeRecorder(node: micMixer)
+        if let file = recorder.audioFile {
+            player = AKPlayer(audioFile: file)
         }
+        player.isLooping = true
+        player.completionHandler = playingEnded
 
+        moogLadder = AKMoogLadder(player)
+        
+        mainMixer = AKMixer(moogLadder, micBooster)
 
+        AudioKit.output = mainMixer
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
+    }
+    @IBAction func recordPlayButtonPressed(_ sender: UIButton) {
 
+        switch state {
+               case .readyToRecord :
+                   navigationController?.title = "Recording"
+                   recordPlayButton.setBackgroundImage(UIImage(systemName: "stop.fill"), for: .normal)
+                   state = .recording
+                   // microphone will be monitored while recording
+                   // only if headphones are plugged
+                   if AKSettings.headPhonesPlugged {
+                       micBooster.gain = 1
+                   }
+                   do {
+                       try recorder.record()
+                   } catch { AKLog("Errored recording.") }
 
+               case .recording :
+                   // Microphone monitoring is muted
+                   micBooster.gain = 0
+                   tape = recorder.audioFile!
+                   player.load(audioFile: tape)
+
+                   if let _ = player.audioFile?.duration {
+                       recorder.stop()
+                       tape.exportAsynchronously(name: "TempTestFile.m4a",
+                                                 baseDir: .documents,
+                                                 exportFormat: .m4a) {_, exportError in
+                           if let error = exportError {
+                               AKLog("Export Failed \(error)")
+                           } else {
+                               AKLog("Export succeeded")
+                           }
+                       }
+                       setupUIForPlaying()
+                   }
+               case .readyToPlay :
+                   player.play()
+                    navigationController?.title = "Playing..."
+                   recordPlayButton.setBackgroundImage(UIImage(systemName: "stop.fill"), for: .normal)
+                   state = .playing
+                   outputPlot?.node = player
+                   print(tape.url.absoluteString)
+
+               case .playing :
+                   player.stop()
+                   setupUIForPlaying()
+                   outputPlot?.node = mic
+               }
 
     }
 
-    // MARK: - InputDeviceDelegate
-    extension PlaySoundsViewController: InputDeviceDelegate {
 
-        func didSelectInputDevice(_ device: AKDevice) {
-            do {
-                try mic.setDevice(device)
-            } catch {
-                AKLog("Error setting input device")
-            }
+
+    func playingEnded() {
+        DispatchQueue.main.async {
+            self.setupUIForPlaying ()
         }
-
     }
+
+
+    func setupUIForPlaying () {
+        let recordedDuration = player != nil ? player.audioFile?.duration  : 0
+        recordPlayButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
+        state = .readyToPlay
+        navigationController?.title = String(recordedDuration!)
+       }
+
+    func setupUIForRecording () {
+        state = .readyToRecord
+        navigationController?.title = "Ready to record"
+        recordPlayButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
+        micBooster.gain = 0
+    }
+
+}
