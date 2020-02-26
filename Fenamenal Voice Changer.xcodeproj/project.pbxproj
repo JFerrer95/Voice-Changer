@@ -17,6 +17,7 @@
 		D162E49723FF93EA004B41F3 /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = D162E49623FF93EA004B41F3 /* Knob.swift */; };
 		D16ADF722404D4BA00D3CE6D /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16ADF712404D4BA00D3CE6D /* Preset.swift */; };
 		D16ADF742404E1D700D3CE6D /* EffectsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */; };
+		D16B1D452406445E00327270 /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16B1D442406445E00327270 /* PopOverViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		D162E49623FF93EA004B41F3 /* Knob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
 		D16ADF712404D4BA00D3CE6D /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPanel.swift; sourceTree = "<group>"; };
+		D16B1D442406445E00327270 /* PopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				D14A8D1B23FC8A9600DD5AF2 /* SceneDelegate.swift */,
 				D10B754223FCCCEA00870BD2 /* RecordAudioViewController.swift */,
 				D14A8D1F23FC8A9600DD5AF2 /* Main.storyboard */,
+				D16B1D442406445E00327270 /* PopOverViewController.swift */,
 				D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */,
 				D16ADF712404D4BA00D3CE6D /* Preset.swift */,
 				D14A8D2223FC8A9A00DD5AF2 /* Assets.xcassets */,
@@ -199,6 +202,7 @@
 			files = (
 				D162E49723FF93EA004B41F3 /* Knob.swift in Sources */,
 				D14A8D1A23FC8A9600DD5AF2 /* AppDelegate.swift in Sources */,
+				D16B1D452406445E00327270 /* PopOverViewController.swift in Sources */,
 				D16ADF722404D4BA00D3CE6D /* Preset.swift in Sources */,
 				D14A8D1C23FC8A9600DD5AF2 /* SceneDelegate.swift in Sources */,
 				D10B754323FCCCEA00870BD2 /* RecordAudioViewController.swift in Sources */,

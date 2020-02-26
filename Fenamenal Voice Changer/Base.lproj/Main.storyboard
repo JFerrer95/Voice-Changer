@@ -45,14 +45,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KgI-rZ-vfW"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Ke4-76-LVy">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="YAa-T5-GAE">
-                            <connections>
-                                <action selector="didTapInputDevicesButton:" destination="UyX-6b-Lec" id="M3N-ec-Ol3"/>
-                                <segue destination="zw5-qz-kdV" kind="show" id="Esr-vG-kEr"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Ke4-76-LVy"/>
                     <connections>
                         <outlet property="outputPlot" destination="xEC-1s-iqS" id="wX2-0h-YPx"/>
                         <outlet property="recordPlayButton" destination="Aj3-jY-nse" id="txP-54-VtJ"/>
@@ -61,34 +54,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATd-kq-M8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2715.9420289855075" y="9.375"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="vP6-l9-Ixi">
-            <objects>
-                <viewController id="zw5-qz-kdV" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="iJh-Nl-kDP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZNE-f1-01m" customClass="EffectsPanel" customModule="Fenamenal_Voice_Changer" customModuleProvider="target">
-                                <rect key="frame" x="20" y="108" width="374" height="336"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="5AX-fe-i7l" firstAttribute="bottom" secondItem="ZNE-f1-01m" secondAttribute="bottom" constant="418" id="BaM-Vg-4xo"/>
-                            <constraint firstItem="5AX-fe-i7l" firstAttribute="trailing" secondItem="ZNE-f1-01m" secondAttribute="trailing" constant="20" id="L6o-Vu-GdY"/>
-                            <constraint firstItem="ZNE-f1-01m" firstAttribute="leading" secondItem="5AX-fe-i7l" secondAttribute="leading" constant="20" id="t79-6t-wlq"/>
-                            <constraint firstItem="ZNE-f1-01m" firstAttribute="top" secondItem="5AX-fe-i7l" secondAttribute="top" constant="20" id="w69-eZ-EVa"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="5AX-fe-i7l"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="2G5-w8-9X7"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TRG-BV-cEm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3515.9420289855075" y="8.7053571428571423"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zbx-L9-wS2">

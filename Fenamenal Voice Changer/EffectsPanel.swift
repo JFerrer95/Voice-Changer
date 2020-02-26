@@ -7,13 +7,16 @@
 //
 
 import UIKit
+protocol PresentEffectsKnobsDelegate {
+    func presentVC(viewController: UIViewController)
+}
 
 class EffectsPanel: UIView {
 
     var preset: Preset?
 
     let reverbButton = UIButton()
-
+    var delegate: PresentEffectsKnobsDelegate?
     
 
     override init(frame: CGRect) {
@@ -44,7 +47,9 @@ class EffectsPanel: UIView {
     }
 
     @objc func reverbButtonTapped() {
-        print("Got it")
+      
+        
+    
     }
 
 }

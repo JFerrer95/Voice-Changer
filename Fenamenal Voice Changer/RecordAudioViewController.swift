@@ -51,6 +51,7 @@ class RecordAudioViewController: UIViewController {
         outputPlot?.node = mic
 
         setupUIForRecording()
+        effectsPanel.delegate = self
 
     }
 
@@ -193,4 +194,12 @@ class RecordAudioViewController: UIViewController {
 
     }
 
+}
+
+extension RecordAudioViewController: PresentEffectsKnobsDelegate {
+    func presentVC(viewController: UIViewController) {
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    
 }
