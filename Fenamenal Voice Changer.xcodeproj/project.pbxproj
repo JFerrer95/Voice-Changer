@@ -17,7 +17,8 @@
 		D162E49723FF93EA004B41F3 /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = D162E49623FF93EA004B41F3 /* Knob.swift */; };
 		D16ADF722404D4BA00D3CE6D /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16ADF712404D4BA00D3CE6D /* Preset.swift */; };
 		D16ADF742404E1D700D3CE6D /* EffectsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */; };
-		D16B1D452406445E00327270 /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16B1D442406445E00327270 /* PopOverViewController.swift */; };
+		D16B1D4724064A7F00327270 /* ReverbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16B1D4624064A7F00327270 /* ReverbView.swift */; };
+		D16B1D4F2406518B00327270 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = D16B1D4E2406518B00327270 /* View.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +36,8 @@
 		D162E49623FF93EA004B41F3 /* Knob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
 		D16ADF712404D4BA00D3CE6D /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPanel.swift; sourceTree = "<group>"; };
-		D16B1D442406445E00327270 /* PopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
+		D16B1D4624064A7F00327270 /* ReverbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbView.swift; sourceTree = "<group>"; };
+		D16B1D4E2406518B00327270 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,19 +81,52 @@
 		D14A8D1823FC8A9600DD5AF2 /* Fenamenal Voice Changer */ = {
 			isa = PBXGroup;
 			children = (
-				D14A8D1923FC8A9600DD5AF2 /* AppDelegate.swift */,
-				D14A8D1B23FC8A9600DD5AF2 /* SceneDelegate.swift */,
-				D10B754223FCCCEA00870BD2 /* RecordAudioViewController.swift */,
-				D14A8D1F23FC8A9600DD5AF2 /* Main.storyboard */,
-				D16B1D442406445E00327270 /* PopOverViewController.swift */,
-				D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */,
-				D16ADF712404D4BA00D3CE6D /* Preset.swift */,
+				D16B1D4A24064AD400327270 /* Resources */,
+				D16B1D4924064AAD00327270 /* View Controllers */,
+				D16B1D4824064A8F00327270 /* Views */,
+				D16B1D4B24064B2700327270 /* Models */,
 				D14A8D2223FC8A9A00DD5AF2 /* Assets.xcassets */,
-				D162E49623FF93EA004B41F3 /* Knob.swift */,
-				D14A8D2423FC8A9A00DD5AF2 /* LaunchScreen.storyboard */,
 				D14A8D2723FC8A9A00DD5AF2 /* Info.plist */,
 			);
 			path = "Fenamenal Voice Changer";
+			sourceTree = "<group>";
+		};
+		D16B1D4824064A8F00327270 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */,
+				D16B1D4624064A7F00327270 /* ReverbView.swift */,
+				D16B1D4E2406518B00327270 /* View.xib */,
+				D162E49623FF93EA004B41F3 /* Knob.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D16B1D4924064AAD00327270 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D10B754223FCCCEA00870BD2 /* RecordAudioViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		D16B1D4A24064AD400327270 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D14A8D1923FC8A9600DD5AF2 /* AppDelegate.swift */,
+				D14A8D1B23FC8A9600DD5AF2 /* SceneDelegate.swift */,
+				D14A8D1F23FC8A9600DD5AF2 /* Main.storyboard */,
+				D14A8D2423FC8A9A00DD5AF2 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D16B1D4B24064B2700327270 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D16ADF712404D4BA00D3CE6D /* Preset.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		EB6B4D5E2A8407BB08A8C48A /* Pods */ = {
@@ -162,6 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D16B1D4F2406518B00327270 /* View.xib in Resources */,
 				D14A8D2623FC8A9A00DD5AF2 /* LaunchScreen.storyboard in Resources */,
 				D14A8D2323FC8A9A00DD5AF2 /* Assets.xcassets in Resources */,
 				D14A8D2123FC8A9600DD5AF2 /* Main.storyboard in Resources */,
@@ -202,8 +238,8 @@
 			files = (
 				D162E49723FF93EA004B41F3 /* Knob.swift in Sources */,
 				D14A8D1A23FC8A9600DD5AF2 /* AppDelegate.swift in Sources */,
-				D16B1D452406445E00327270 /* PopOverViewController.swift in Sources */,
 				D16ADF722404D4BA00D3CE6D /* Preset.swift in Sources */,
+				D16B1D4724064A7F00327270 /* ReverbView.swift in Sources */,
 				D14A8D1C23FC8A9600DD5AF2 /* SceneDelegate.swift in Sources */,
 				D10B754323FCCCEA00870BD2 /* RecordAudioViewController.swift in Sources */,
 				D16ADF742404E1D700D3CE6D /* EffectsPanel.swift in Sources */,

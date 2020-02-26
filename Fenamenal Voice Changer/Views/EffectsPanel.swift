@@ -16,6 +16,7 @@ class EffectsPanel: UIView {
     var preset: Preset?
 
     let reverbButton = UIButton()
+    let reverbView = ReverbView()
     var delegate: PresentEffectsKnobsDelegate?
     
 
@@ -47,7 +48,15 @@ class EffectsPanel: UIView {
     }
 
     @objc func reverbButtonTapped() {
-      
+        addSubview(reverbView)
+        reverbView.frame = reverbButton.frame
+        
+        UIView.animate(withDuration: 0.5) {
+            self.reverbView.frame = CGRect(x: self.reverbButton.frame.origin.x, y: self.reverbButton.frame.origin.y, width: self.reverbButton.frame.width * 3.5, height: self.reverbButton.frame.height * 3.5)
+            
+        }
+        
+        
         
     
     }
