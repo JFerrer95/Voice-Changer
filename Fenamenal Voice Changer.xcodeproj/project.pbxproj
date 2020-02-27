@@ -18,7 +18,6 @@
 		D16ADF722404D4BA00D3CE6D /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16ADF712404D4BA00D3CE6D /* Preset.swift */; };
 		D16ADF742404E1D700D3CE6D /* EffectsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */; };
 		D16B1D4724064A7F00327270 /* ReverbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16B1D4624064A7F00327270 /* ReverbView.swift */; };
-		D16B1D4F2406518B00327270 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = D16B1D4E2406518B00327270 /* View.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +36,6 @@
 		D16ADF712404D4BA00D3CE6D /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPanel.swift; sourceTree = "<group>"; };
 		D16B1D4624064A7F00327270 /* ReverbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbView.swift; sourceTree = "<group>"; };
-		D16B1D4E2406518B00327270 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +94,6 @@
 			children = (
 				D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */,
 				D16B1D4624064A7F00327270 /* ReverbView.swift */,
-				D16B1D4E2406518B00327270 /* View.xib */,
 				D162E49623FF93EA004B41F3 /* Knob.swift */,
 			);
 			path = Views;
@@ -197,7 +194,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D16B1D4F2406518B00327270 /* View.xib in Resources */,
 				D14A8D2623FC8A9A00DD5AF2 /* LaunchScreen.storyboard in Resources */,
 				D14A8D2323FC8A9A00DD5AF2 /* Assets.xcassets in Resources */,
 				D14A8D2123FC8A9600DD5AF2 /* Main.storyboard in Resources */,

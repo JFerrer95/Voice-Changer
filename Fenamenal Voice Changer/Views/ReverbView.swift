@@ -10,7 +10,7 @@ import UIKit
 
 class ReverbView: UIView {
 
-    @IBOutlet weak var button: UIButton!
+
     var toolBar = UIToolbar()
     var picker  = UIPickerView()
     var isActiveButton = UIButton()
@@ -35,10 +35,20 @@ class ReverbView: UIView {
         self.layer.borderWidth = 5
         self.layer.borderColor = UIColor.systemBlue.cgColor
         
+        isActiveButton = UIButton(frame: CGRect(x: self.frame.midX, y: self.frame.midY, width: 100, height: 50))
+        isActiveButton.setTitle("Test Button", for: .normal)
+        isActiveButton.backgroundColor = .systemBlue
+        isActiveButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+
         addSubview(isActiveButton)
-        isActiveButton.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-        isActiveButton.frame = CGRect(x: self.frame.midX - ( self.frame.width / 4), y: self.frame.origin.y + 20, width: self.frame.width / 4, height: self.frame.width)
-        
+ 
+    }
+    
+    
+    
+
+    @objc func buttonAction(sender: UIButton!) {
+      print("Button tapped")
     }
 
 }
