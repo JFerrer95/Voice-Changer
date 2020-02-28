@@ -26,7 +26,7 @@ enum State {
 
    }
 
-class RecordAudioViewController: UIViewController {
+class RecordAudioViewController: UIViewController{
 
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
@@ -51,7 +51,7 @@ class RecordAudioViewController: UIViewController {
         outputPlot?.node = mic
 
         setupUIForRecording()
-        effectsPanel.delegate = self
+       
 
     }
 
@@ -191,15 +191,26 @@ class RecordAudioViewController: UIViewController {
         effectsPanel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         effectsPanel.setupViews()
 
-
     }
 
 }
 
-extension RecordAudioViewController: PresentEffectsKnobsDelegate {
-    func presentVC(viewController: UIViewController) {
-        self.present(viewController, animated: true, completion: nil)
+extension RecordAudioViewController: ReverbDelegate {
+    func reverbEnableToggle() {
+        if reverb.isStarted == true {
+            reverb.stop()
+        } else {
+            reverb.start()
+        }
+    }
+    
+    func reverbWetDryChanged(vlaue: Float) {
+        reverb.dryWetMix = Double(vlaue)
     }
     
     
+    
+    
 }
+
+
