@@ -39,8 +39,7 @@ class RecordAudioViewController: UIViewController{
     let mic = AKMicrophone()
     var state = State.readyToRecord
     var effectsPanel = EffectsPanel()
-
-
+    var preset = Preset()
 
     @IBOutlet weak var outputPlot: AKNodeOutputPlot?
     @IBOutlet weak var recordPlayButton: UIButton!
@@ -174,6 +173,8 @@ class RecordAudioViewController: UIViewController{
 
             self.view.backgroundColor = .black
             self.effectsPanel.setupViews()
+            self.effectsPanel.reverbDelegate = self
+            self.effectsPanel.preset = self.preset
             self.view.layoutIfNeeded()
         })
        }
@@ -193,19 +194,28 @@ class RecordAudioViewController: UIViewController{
 
     }
 
+
+
+
 }
+
+
 
 extension RecordAudioViewController: ReverbDelegate {
     func reverbEnableToggle() {
-        if reverb.isStarted == true {
-            reverb.stop()
-        } else {
-            reverb.start()
-        }
+      if preset.reverb.isActive == true {
+                 reverb.stop()
+        preset.reverb.isActive.toggle()
+          } else {
+                 reverb.start()
+        preset.reverb.isActive.toggle()
+
+      }
     }
     
-    func reverbWetDryChanged(vlaue: Float) {
-        reverb.dryWetMix = Double(vlaue)
+    func reverbWetDryChanged(value: Double) {
+        reverb.dryWetMix = preset.reverb.dryWet
+
     }
     
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AudioKit
 
 class Preset {
     var reverb: Reverb
@@ -20,13 +21,13 @@ class Preset {
 class Reverb {
     var isActive: Bool
     var reverbPreset: ReverbPreset
-    var dryWet: Float
+    var dryWet: Double
     let reverbPresets = ["Cathedral", "Large Hall", "Large Hall 2",
     "Large Room", "Large Room 2", "Medium Chamber",
     "Medium Hall", "Medium Hall 2", "Medium Hall 3",
     "Medium Room", "Plate", "Small Room"]
 
-    init(isActive: Bool = false, reverbPreset: ReverbPreset = .cathedral, dryWet: Float = 0.5) {
+    init(isActive: Bool = false, reverbPreset: ReverbPreset = .cathedral, dryWet: Double = 0.5) {
         self.isActive = isActive
         self.reverbPreset = reverbPreset
         self.dryWet = dryWet
@@ -34,6 +35,7 @@ class Reverb {
 }
 
 enum ReverbPreset {
+
        case cathedral
        case largeHall
        case largeHall2

@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import AudioKit
+import AudioKitUI
 
 protocol ReverbDelegate {
     func reverbEnableToggle()
-    func reverbWetDryChanged(vlaue: Float)
+    func reverbWetDryChanged(value: Double)
 }
 
 class ReverbView: UIView {
@@ -19,8 +21,9 @@ class ReverbView: UIView {
     var toolBar = UIToolbar()
     var picker  = UIPickerView()
     var isActiveButton = UIButton()
-    var slider = UISlider()
+    var slider = AKSlider(property: "Reverb")
     var delegate: ReverbDelegate?
+    var preset: Preset?
     
     
     override init(frame: CGRect) {
@@ -52,25 +55,25 @@ class ReverbView: UIView {
             self.addSubview(self.isActiveButton)
             
             // TODO -
-            
-            self.slider = UISlider()
-            self.slider.translatesAutoresizingMaskIntoConstraints = false
-            self.addSubview(self.slider)
-            self.slider.topAnchor.constraint(equalTo: self.isActiveButton.bottomAnchor, constant: 20).isActive = true
-            self.slider.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
-            self.slider.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-            self.slider.minimumValue = 0
-            self.slider.maximumValue = 1
-            self.slider.value = 0.5
-            self.slider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
-        
+            addSubview(slider)
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.topAnchor.constraint(equalTo: isActiveButton.bottomAnchor, constant: 20).isActive = true
+        slider.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        slider.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        slider.heightAnchor.constraint(equalTo: isActiveButton.heightAnchor).isActive = true
+
+
+        slider.range = 0.0...1
+        slider.value = 0.5
+        slider.callback = sliderChanged
         
     }
     
+
     
-    
-   @objc func sliderChanged() {
-        delegate?.reverbWetDryChanged(vlaue: slider.value)
+    func sliderChanged(value: Double) {
+        preset?.reverb.dryWet = value
+        delegate?.reverbWetDryChanged(value: value)
     }
     
     
