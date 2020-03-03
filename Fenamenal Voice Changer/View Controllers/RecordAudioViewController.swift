@@ -48,9 +48,10 @@ class RecordAudioViewController: UIViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         outputPlot?.node = mic
-
+        
+        
         setupUIForRecording()
-       
+        
 
     }
 
@@ -87,6 +88,7 @@ class RecordAudioViewController: UIViewController{
         player.completionHandler = playingEnded
 
         reverb = AKReverb(player)
+        
         
         mainMixer = AKMixer(reverb, micBooster)
 
@@ -131,6 +133,7 @@ class RecordAudioViewController: UIViewController{
                            }
                        }
                        setupUIForPlaying()
+                    effectsPanel.preset = self.preset
                    }
                case .readyToPlay :
                    player.play()
@@ -172,9 +175,9 @@ class RecordAudioViewController: UIViewController{
             self.outputPlot?.bottomAnchor.constraint(equalTo: self.recordPlayButton.topAnchor, constant: -20).isActive = true
 
             self.view.backgroundColor = .black
-            self.effectsPanel.setupViews()
+           
             self.effectsPanel.reverbDelegate = self
-            self.effectsPanel.preset = self.preset
+            
             self.view.layoutIfNeeded()
         })
        }
@@ -190,10 +193,22 @@ class RecordAudioViewController: UIViewController{
         effectsPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         effectsPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         effectsPanel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        effectsPanel.setupViews()
+        
 
     }
-
+    
+  
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = touches.first
+        
+        if touch?.view != effectsPanel.reverbView {
+            
+            effectsPanel.reverbView.isHidden = true
+            
+            
+      }
+          
+    }
 
 
 
@@ -202,6 +217,38 @@ class RecordAudioViewController: UIViewController{
 
 
 extension RecordAudioViewController: ReverbDelegate {
+    func reverbTypeChanged(index: Int) {
+        
+        switch index {
+        case 0:
+            reverb.loadFactoryPreset(.cathedral)
+        case 1:
+            reverb.loadFactoryPreset(.largeHall)
+        case 2:
+            reverb.loadFactoryPreset(.largeHall2)
+        case 3:
+            reverb.loadFactoryPreset(.largeRoom)
+        case 4:
+            reverb.loadFactoryPreset(.largeRoom2)
+        case 5:
+            reverb.loadFactoryPreset(.mediumChamber)
+        case 6:
+            reverb.loadFactoryPreset(.mediumHall)
+        case 7:
+            reverb.loadFactoryPreset(.mediumHall2)
+        case 8:
+            reverb.loadFactoryPreset(.mediumHall3)
+        case 9:
+            reverb.loadFactoryPreset(.mediumRoom)
+        case 10:
+            reverb.loadFactoryPreset(.plate)
+        case 11:
+            reverb.loadFactoryPreset(.smallRoom)
+        default:
+            reverb.loadFactoryPreset(.cathedral)
+        }
+    }
+    
     func reverbEnableToggle() {
       if preset.reverb.isActive == true {
         reverb.bypass()

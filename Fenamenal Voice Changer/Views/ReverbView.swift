@@ -13,6 +13,7 @@ import AudioKitUI
 protocol ReverbDelegate {
     func reverbEnableToggle()
     func reverbWetDryChanged(value: Double)
+    func reverbTypeChanged(index: Int)
 }
 
 class ReverbView: UIView {
@@ -28,6 +29,7 @@ class ReverbView: UIView {
     var preset: Preset? {
         didSet {
             setupViews()
+            
         }
     }
     
@@ -57,8 +59,7 @@ class ReverbView: UIView {
         
         
         isActiveButton = UIButton()
-        isActiveButton.setTitle("Enabled", for: .normal)
-        isActiveButton.backgroundColor = .systemBlue
+        changeActive()
         isActiveButton.addTarget(self, action: #selector(self.isActiveButtonAction), for: .touchUpInside)
         addSubview(isActiveButton)
         isActiveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -76,12 +77,13 @@ class ReverbView: UIView {
         slider.range = 0.0...1
         slider.value = 0.5
         slider.callback = sliderChanged
+        slider.color = preset!.reverb.isActive ? UIColor.green : UIColor.red
         slider.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             slider.topAnchor.constraint(equalTo: isActiveButton.bottomAnchor, constant: 20),
-            slider.widthAnchor.constraint(equalTo: widthAnchor, constant: -20 ),
-            slider.centerXAnchor.constraint(equalTo: centerXAnchor),
+            slider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width / 3),
+            slider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -frame.width / 3),
             slider.heightAnchor.constraint(equalTo: isActiveButton.heightAnchor, multiplier: 2)
         ])
        
@@ -90,7 +92,13 @@ class ReverbView: UIView {
         
         
         reverbTypeButton = UIButton()
-        reverbTypeButton.setTitle(preset?.reverb.reverbPreset.rawValue.capitalized, for: .normal)
+        reverbTypeButton.backgroundColor = .systemBlue
+        
+        
+        
+        guard let preset = preset else { return }
+        
+        reverbTypeButton.setTitle(preset.reverb.reverbPreset, for: .normal)
         reverbTypeButton.addTarget(self, action: #selector(self.onClickDropButtonAction), for: .touchUpInside)
         addSubview(reverbTypeButton)
         reverbTypeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +114,7 @@ class ReverbView: UIView {
         
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+        tableView.isHidden = true
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: reverbTypeButton.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: reverbTypeButton.leadingAnchor),
@@ -124,9 +132,11 @@ class ReverbView: UIView {
         if preset?.reverb.isActive == true {
             
             isActiveButton.setTitle("Active", for: .normal)
+            isActiveButton.backgroundColor = .systemGreen
         } else {
           
             isActiveButton.setTitle("Inactive", for: .normal)
+            isActiveButton.backgroundColor = .systemRed
         }
     }
     
@@ -144,11 +154,11 @@ class ReverbView: UIView {
         
         if preset?.reverb.isActive == true {
             preset?.reverb.isActive = false
-            slider.color = .green
+            slider.color = .systemRed
             changeActive()
         } else {
             preset?.reverb.isActive = true
-              slider.color = .red
+            slider.color = .systemGreen
             changeActive()
         }
     }
@@ -191,11 +201,18 @@ extension ReverbView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        reverbTypeButton.setTitle("\(preset?.reverb.reverbPresets[indexPath.row] ?? "Nada")", for: .normal)
+        guard let reverbPreset = preset?.reverb.reverbPresets[indexPath.row] else { return }
+        reverbTypeButton.setTitle( reverbPreset, for: .normal)
+        preset?.reverb.reverbPreset = reverbPreset
         animation(toggle: false)
+        delegate?.reverbTypeChanged(index: indexPath.row)
+        
     }
+
     
     
     
     
 }
+
+

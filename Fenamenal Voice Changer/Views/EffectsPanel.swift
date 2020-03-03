@@ -11,10 +11,14 @@ import UIKit
 
 class EffectsPanel: UIView {
 
-    var preset: Preset?
+    var preset: Preset? {
+        didSet {
+           setupViews()
+        }
+    }
 
     let reverbButton = UIButton()
-    let reverbView = ReverbView()
+    var reverbView: ReverbView = ReverbView()
     var reverbDelegate: ReverbDelegate?
 
     
@@ -44,16 +48,20 @@ class EffectsPanel: UIView {
         reverbButton.layer.borderColor = UIColor.systemBlue.cgColor
         reverbButton.layer.borderWidth = 5
         reverbButton.addTarget(self, action: #selector(reverbButtonTapped), for: .touchUpInside)
+        
     }
 
     @objc func reverbButtonTapped() {
+        reverbView = ReverbView()
+        reverbView.isHidden = false
+      
         addSubview(reverbView)
         self.reverbView.translatesAutoresizingMaskIntoConstraints = false
         reverbView.frame = reverbButton.frame
         reverbView.preset = preset
         reverbView.delegate = reverbDelegate
         
-        UIView.animate(withDuration: 2) {
+        UIView.animate(withDuration: 0.5) {
             
 
             NSLayoutConstraint.activate([
@@ -63,12 +71,16 @@ class EffectsPanel: UIView {
                 
             ])
             self.layoutIfNeeded()
-            self.reverbButton.isEnabled = false
-        }
-
+            
         
+
+    }
         
     
     }
+    
+   
+        
+    
 
 }
