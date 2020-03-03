@@ -22,6 +22,7 @@ class ReverbView: UIView {
     var picker  = UIPickerView()
     var isActiveButton = UIButton()
     var reverbTypeButton = UIButton()
+    var tableView: UITableView = UITableView()
     var slider = AKSlider(property: "Reverb")
     var delegate: ReverbDelegate?
     var preset: Preset? {
@@ -30,20 +31,22 @@ class ReverbView: UIView {
         }
     }
     
-    var tableView: UITableView = UITableView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.frame = frame
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        
-        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     
@@ -88,6 +91,7 @@ class ReverbView: UIView {
         
         reverbTypeButton = UIButton()
         reverbTypeButton.setTitle(preset?.reverb.reverbPreset.rawValue.capitalized, for: .normal)
+        reverbTypeButton.addTarget(self, action: #selector(self.onClickDropButtonAction), for: .touchUpInside)
         addSubview(reverbTypeButton)
         reverbTypeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -98,6 +102,9 @@ class ReverbView: UIView {
         ])
         
         addSubview(tableView)
+        
+        
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -145,5 +152,50 @@ class ReverbView: UIView {
             changeActive()
         }
     }
+    
+    @objc func onClickDropButtonAction(sender: UIButton) {
+        if tableView.isHidden {
+            animation(toggle: true)
+        } else {
+            animation(toggle: false)
+        }
+    }
+    func animation(toggle: Bool) {
+        
+        
+        
+        if toggle {
+            UIView.animate(withDuration: 0.3) {
+                self.tableView.isHidden = false
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.tableView.isHidden = true
+            }
+    
+        }
+    }
+    
 
+}
+
+extension ReverbView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return preset?.reverb.reverbPresets.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = preset?.reverb.reverbPresets[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        reverbTypeButton.setTitle("\(preset?.reverb.reverbPresets[indexPath.row] ?? "Nada")", for: .normal)
+        animation(toggle: false)
+    }
+    
+    
+    
+    
 }

@@ -48,18 +48,22 @@ class EffectsPanel: UIView {
 
     @objc func reverbButtonTapped() {
         addSubview(reverbView)
+        self.reverbView.translatesAutoresizingMaskIntoConstraints = false
         reverbView.frame = reverbButton.frame
         reverbView.preset = preset
         reverbView.delegate = reverbDelegate
         
-        UIView.animate(withDuration: 0.5) {
-            self.reverbView.translatesAutoresizingMaskIntoConstraints = false
-            self.reverbButton.isEnabled = false
+        UIView.animate(withDuration: 2) {
+            
+
             NSLayoutConstraint.activate([
-                self.reverbView.topAnchor.constraint(equalTo: self.reverbButton.topAnchor)
+                self.reverbView.topAnchor.constraint(equalTo: self.reverbButton.topAnchor),
+                self.reverbView.widthAnchor.constraint(equalToConstant: self.frame.width),
+                self.reverbView.heightAnchor.constraint(equalToConstant: self.frame.height)
                 
             ])
-            
+            self.layoutIfNeeded()
+            self.reverbButton.isEnabled = false
         }
 
         

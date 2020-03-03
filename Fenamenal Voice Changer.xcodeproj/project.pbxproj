@@ -18,6 +18,7 @@
 		D16ADF722404D4BA00D3CE6D /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16ADF712404D4BA00D3CE6D /* Preset.swift */; };
 		D16ADF742404E1D700D3CE6D /* EffectsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */; };
 		D16B1D4724064A7F00327270 /* ReverbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16B1D4624064A7F00327270 /* ReverbView.swift */; };
+		D1E9CD8D240E285F001C7660 /* ReverbTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E9CD8C240E285F001C7660 /* ReverbTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		D16ADF712404D4BA00D3CE6D /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPanel.swift; sourceTree = "<group>"; };
 		D16B1D4624064A7F00327270 /* ReverbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbView.swift; sourceTree = "<group>"; };
+		D1E9CD8C240E285F001C7660 /* ReverbTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */,
 				D16B1D4624064A7F00327270 /* ReverbView.swift */,
 				D162E49623FF93EA004B41F3 /* Knob.swift */,
+				D1E9CD8C240E285F001C7660 /* ReverbTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				D16ADF722404D4BA00D3CE6D /* Preset.swift in Sources */,
 				D16B1D4724064A7F00327270 /* ReverbView.swift in Sources */,
 				D14A8D1C23FC8A9600DD5AF2 /* SceneDelegate.swift in Sources */,
+				D1E9CD8D240E285F001C7660 /* ReverbTableViewCell.swift in Sources */,
 				D10B754323FCCCEA00870BD2 /* RecordAudioViewController.swift in Sources */,
 				D16ADF742404E1D700D3CE6D /* EffectsPanel.swift in Sources */,
 			);
