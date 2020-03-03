@@ -34,7 +34,7 @@ class Reverb {
     }
 }
 
-enum ReverbPreset {
+enum ReverbPreset: String {
 
        case cathedral
        case largeHall

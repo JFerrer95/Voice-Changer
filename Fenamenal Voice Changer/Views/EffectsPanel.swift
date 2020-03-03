@@ -53,7 +53,12 @@ class EffectsPanel: UIView {
         reverbView.delegate = reverbDelegate
         
         UIView.animate(withDuration: 0.5) {
-            self.reverbView.frame = CGRect(x: self.reverbButton.frame.origin.x, y: self.reverbButton.frame.origin.y, width: self.reverbButton.frame.width * 3.5, height: self.reverbButton.frame.height * 3.5)
+            self.reverbView.translatesAutoresizingMaskIntoConstraints = false
+            self.reverbButton.isEnabled = false
+            NSLayoutConstraint.activate([
+                self.reverbView.topAnchor.constraint(equalTo: self.reverbButton.topAnchor)
+                
+            ])
             
         }
 

@@ -204,17 +204,16 @@ class RecordAudioViewController: UIViewController{
 extension RecordAudioViewController: ReverbDelegate {
     func reverbEnableToggle() {
       if preset.reverb.isActive == true {
-                 reverb.stop()
-        preset.reverb.isActive.toggle()
+        reverb.bypass()
           } else {
-                 reverb.start()
-        preset.reverb.isActive.toggle()
-
+        reverb.start()
       }
     }
     
     func reverbWetDryChanged(value: Double) {
-        reverb.dryWetMix = preset.reverb.dryWet
+        if preset.reverb.isActive {
+            reverb.dryWetMix = preset.reverb.dryWet
+        }
 
     }
     
