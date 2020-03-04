@@ -11,11 +11,20 @@ import AudioKit
 
 class Preset {
     var reverb: Reverb
-
+    var delay: Delay
     init() {
         reverb = Reverb()
+        delay = Delay()
     }
 
+}
+
+class Delay {
+    var isActive: Bool
+    
+    init(isActive: Bool = false) {
+        self.isActive = isActive
+    }
 }
 
 class Reverb {

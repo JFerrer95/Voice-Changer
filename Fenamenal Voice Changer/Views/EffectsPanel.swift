@@ -23,6 +23,7 @@ class EffectsPanel: UIView {
     
     let delayButton = UIButton()
     var delayView: DelayView = DelayView()
+    var delayDelegate: DelayDelegate?
     
 
     override init(frame: CGRect) {
@@ -91,7 +92,7 @@ class EffectsPanel: UIView {
         delayView.translatesAutoresizingMaskIntoConstraints = false
         delayView.frame = delayButton.frame
         delayView.preset = preset
-        
+        delayView.delegate = delayDelegate
         //MARK: - TODO: - set up delegate
         
         UIView.animate(withDuration: 0.5) {

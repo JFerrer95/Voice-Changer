@@ -29,6 +29,7 @@ class RecordAudioViewController: UIViewController{
     var tape: AKAudioFile!
     var micBooster: AKBooster!
     var reverb: AKReverb!
+    var delay: AKDelay!
     var mainMixer: AKMixer!
 
     let mic = AKMicrophone()
@@ -83,9 +84,10 @@ class RecordAudioViewController: UIViewController{
         player.completionHandler = playingEnded
 
         reverb = AKReverb(player)
-        
-        
-        mainMixer = AKMixer(reverb, micBooster)
+        reverb.stop()
+        delay = AKDelay(reverb)
+        delay.stop()
+        mainMixer = AKMixer(delay, micBooster)
 
         AudioKit.output = mainMixer
         do {
@@ -150,7 +152,11 @@ class RecordAudioViewController: UIViewController{
 
     func playingEnded() {
         DispatchQueue.main.async {
-            self.setupUIForPlaying ()
+       
+            self.recordPlayButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
+            self.state = .readyToPlay
+            
+
         }
     }
     
@@ -162,7 +168,8 @@ class RecordAudioViewController: UIViewController{
         recordPlayButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
         state = .readyToPlay
         navigationController?.title = String(recordedDuration!)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .redo, target: self, action: nil)
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .redo, target: self, action: nil)
+        
         self.effectsPanel.preset = self.preset
         UIView.animate(withDuration: 0.5, animations: {
             self.recordPlayButton.translatesAutoresizingMaskIntoConstraints = false
@@ -174,7 +181,7 @@ class RecordAudioViewController: UIViewController{
             self.view.backgroundColor = .black
            
             self.effectsPanel.reverbDelegate = self
-            
+            self.effectsPanel.delayDelegate = self
             self.view.layoutIfNeeded()
             
         })
@@ -197,12 +204,13 @@ class RecordAudioViewController: UIViewController{
     
   
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch: UITouch? = touches.first
-        
-        if touch?.view != effectsPanel {
+        guard let touch: UITouch = touches.first
+            else { return }
+        let location = touch.location(in: view)
+        if !effectsPanel.frame.contains(location) {
             effectsPanel.reverbView.isHidden = true
             effectsPanel.delayView.isHidden = true
-      }
+        }
           
     }
 
@@ -210,7 +218,19 @@ class RecordAudioViewController: UIViewController{
 
 }
 
-
+extension RecordAudioViewController: DelayDelegate {
+    func delayEnableToggle() {
+        if preset.delay.isActive == true {
+            delay.bypass()
+            
+        } else {
+            delay.start()
+        }
+        
+    }
+    
+    
+}
 
 extension RecordAudioViewController: ReverbDelegate {
     func reverbTypeChanged(index: Int) {
