@@ -31,6 +31,7 @@ class RecordAudioViewController: UIViewController{
     var reverb: AKReverb!
     var delay: AKDelay!
     var mainMixer: AKMixer!
+    var didPlay = false
 
     let mic = AKMicrophone()
     var state = State.readyToRecord
@@ -154,15 +155,15 @@ class RecordAudioViewController: UIViewController{
 
     }
 
-    var didPlay = false
     
 
     func playingEnded() {
         DispatchQueue.main.async {
        
+            let recordedDuration = self.player != nil ? self.player.audioFile?.duration  : 0
             self.recordPlayButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
             self.state = .readyToPlay
-            
+            self.navigationController?.title = String(recordedDuration!)
 
         }
     }
@@ -171,10 +172,7 @@ class RecordAudioViewController: UIViewController{
 
 
     func setupUIForPlaying () {
-        let recordedDuration = player != nil ? player.audioFile?.duration  : 0
-        recordPlayButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
-        state = .readyToPlay
-        navigationController?.title = String(recordedDuration!)
+        playingEnded()
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .redo, target: self, action: nil)
         
         self.effectsPanel.preset = self.preset

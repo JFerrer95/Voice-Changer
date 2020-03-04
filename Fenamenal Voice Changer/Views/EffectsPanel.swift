@@ -95,7 +95,7 @@ class EffectsPanel: UIView {
         delayView.delegate = delayDelegate
         //MARK: - TODO: - set up delegate
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
 
             NSLayoutConstraint.activate([
                 self.delayView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -117,7 +117,7 @@ class EffectsPanel: UIView {
         reverbView.preset = preset
         reverbView.delegate = reverbDelegate
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
 
             NSLayoutConstraint.activate([
                 self.reverbView.topAnchor.constraint(equalTo: self.topAnchor),
