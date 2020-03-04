@@ -5,12 +5,7 @@
 //  Created by Jonathan Ferrer on 2/18/20.
 //  Copyright © 2020 Jonathan Ferrer. All rights reserved.
 //
-//
-//  PlaySoundsViewController.swift
-//  Voice Changer Libre
-//
-//  Created by Luis on 2/8/18.
-//
+
 
 import UIKit
 import AVFoundation
@@ -133,7 +128,7 @@ class RecordAudioViewController: UIViewController{
                            }
                        }
                        setupUIForPlaying()
-                    effectsPanel.preset = self.preset
+                    
                    }
                case .readyToPlay :
                    player.play()
@@ -158,6 +153,8 @@ class RecordAudioViewController: UIViewController{
             self.setupUIForPlaying ()
         }
     }
+    
+
 
 
     func setupUIForPlaying () {
@@ -165,20 +162,21 @@ class RecordAudioViewController: UIViewController{
         recordPlayButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
         state = .readyToPlay
         navigationController?.title = String(recordedDuration!)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .redo, target: self, action: nil)
+        self.effectsPanel.preset = self.preset
         UIView.animate(withDuration: 0.5, animations: {
             self.recordPlayButton.translatesAutoresizingMaskIntoConstraints = false
             self.outputPlot?.translatesAutoresizingMaskIntoConstraints = false
             self.effectsPanel.translatesAutoresizingMaskIntoConstraints = false
             self.recordPlayButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
             self.outputPlot?.bottomAnchor.constraint(equalTo: self.recordPlayButton.topAnchor, constant: -20).isActive = true
-
+            
             self.view.backgroundColor = .black
            
             self.effectsPanel.reverbDelegate = self
             
             self.view.layoutIfNeeded()
+            
         })
        }
 
@@ -201,11 +199,9 @@ class RecordAudioViewController: UIViewController{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
         
-        if touch?.view != effectsPanel.reverbView {
-            
+        if touch?.view != effectsPanel {
             effectsPanel.reverbView.isHidden = true
-            
-            
+            effectsPanel.delayView.isHidden = true
       }
           
     }

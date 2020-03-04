@@ -18,9 +18,6 @@ protocol ReverbDelegate {
 
 class ReverbView: UIView {
 
-
-    var toolBar = UIToolbar()
-    var picker  = UIPickerView()
     var isActiveButton = UIButton()
     var reverbTypeButton = UIButton()
     var tableView: UITableView = UITableView()
@@ -75,7 +72,11 @@ class ReverbView: UIView {
         
         addSubview(slider)
         slider.range = 0.0...1
-        slider.value = 0.5
+        if let value = preset?.reverb.dryWet {
+            slider.value = value
+        } else {
+            slider.value = 0.5
+        }
         slider.callback = sliderChanged
         slider.color = preset!.reverb.isActive ? UIColor.green : UIColor.red
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -209,9 +210,6 @@ extension ReverbView: UITableViewDelegate, UITableViewDataSource {
         
     }
 
-    
-    
-    
     
 }
 
