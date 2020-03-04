@@ -186,6 +186,7 @@ class RecordAudioViewController: UIViewController{
             self.view.backgroundColor = .black
            
             self.effectsPanel.reverbDelegate = self
+            self.effectsPanel.reverbView.delegate = self
             self.effectsPanel.delayDelegate = self
             self.view.layoutIfNeeded()
             
@@ -237,7 +238,7 @@ extension RecordAudioViewController: DelayDelegate {
     
 }
 
-extension RecordAudioViewController: ReverbDelegate {
+extension RecordAudioViewController: ReverbDelegate, ReverbEnableDelegate {
     func reverbTypeChanged(index: Int) {
         
         switch index {
@@ -278,7 +279,7 @@ extension RecordAudioViewController: ReverbDelegate {
       }
     }
     
-    func reverbWetDryChanged(value: Double) {
+    @objc func reverbWetDryChanged(value: Double) {
         if preset.reverb.isActive {
             reverb.dryWetMix = preset.reverb.dryWet
         }

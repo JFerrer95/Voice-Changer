@@ -11,9 +11,13 @@ import AudioKit
 import AudioKitUI
 
 protocol ReverbDelegate {
-    func reverbEnableToggle()
+    
     func reverbWetDryChanged(value: Double)
     func reverbTypeChanged(index: Int)
+}
+
+protocol ReverbEnableDelegate {
+    func reverbEnableToggle()
 }
 
 class ReverbView: UIView {
@@ -23,6 +27,7 @@ class ReverbView: UIView {
     var tableView: UITableView = UITableView()
     var slider = AKSlider(property: "Reverb")
     var delegate: ReverbDelegate?
+    var enableDelegate: ReverbEnableDelegate?
     var preset: Preset? {
         didSet {
             setupViews()
@@ -139,6 +144,7 @@ class ReverbView: UIView {
             isActiveButton.setTitle("Inactive", for: .normal)
             isActiveButton.backgroundColor = .systemRed
         }
+
     }
     
 
@@ -151,7 +157,7 @@ class ReverbView: UIView {
     
 
     @objc func isActiveButtonAction(sender: UIButton!) {
-        delegate?.reverbEnableToggle()
+        enableDelegate?.reverbEnableToggle()
         
         if preset?.reverb.isActive == true {
             preset?.reverb.isActive = false
