@@ -142,13 +142,20 @@ class RecordAudioViewController: UIViewController{
 
                case .playing :
                    player.stop()
-                   setupUIForPlaying()
+                   
+                   if didPlay {
+                    
+                    setupUIForPlaying()
+                    didPlay = false
+                   }
+                   playingEnded()
                    outputPlot?.node = mic
                }
 
     }
 
-
+    var didPlay = false
+    
 
     func playingEnded() {
         DispatchQueue.main.async {
