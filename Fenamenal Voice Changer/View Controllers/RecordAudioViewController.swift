@@ -225,6 +225,14 @@ class RecordAudioViewController: UIViewController{
 }
 
 extension RecordAudioViewController: DelayDelegate {
+    func delayDryWetChanged(value: Double) {
+        delay.dryWetMix = value
+    }
+    
+    func delayTimeChanged(value: Double) {
+        delay.time = TimeInterval(value)
+    }
+    
     func delayEnableToggle() {
         if preset.delay.isActive == true {
             delay.bypass()

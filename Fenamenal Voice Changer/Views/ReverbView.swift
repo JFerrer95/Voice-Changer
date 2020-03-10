@@ -25,7 +25,7 @@ class ReverbView: UIView {
     var isActiveButton = UIButton()
     var reverbTypeButton = UIButton()
     var tableView: UITableView = UITableView()
-    var slider = AKSlider(property: "Reverb")
+    var slider = AKSlider(property: "Dry / Wet")
     var delegate: ReverbDelegate?
     var enableDelegate: ReverbEnableDelegate?
     var preset: Preset? {
