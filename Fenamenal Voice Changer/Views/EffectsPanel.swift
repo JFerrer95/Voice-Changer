@@ -18,11 +18,13 @@ class EffectsPanel: UIView {
     }
 
     let reverbButton = UIButton()
-    var reverbView: ReverbView = ReverbView()
+    var reverbView = ReverbView()
     var reverbDelegate: ReverbDelegate?
-    
+    let pitchShifterButton = UIButton()
+    var pitchShiftView = PitchShiftView()
+    var pitchShiftDelegate: PitchShiftDelegate?
     let delayButton = UIButton()
-    var delayView: DelayView = DelayView()
+    var delayView = DelayView()
     var delayDelegate: DelayDelegate?
     
 
@@ -43,9 +45,11 @@ class EffectsPanel: UIView {
     func setupViews() {
         self.addSubview(reverbButton)
         self.addSubview(delayButton)
+        self.addSubview(pitchShifterButton)
         
         reverbButton.translatesAutoresizingMaskIntoConstraints = false
         delayButton.translatesAutoresizingMaskIntoConstraints = false
+        pitchShifterButton.translatesAutoresizingMaskIntoConstraints = false
 
 //        let reverbFrame = CGRect(x: ( self.frame.midX / 2 ) - (self.frame.width / 5), y: 20, width: self.frame.width / 5, height: self.frame.width / 5)
 //        reverbButton.frame = reverbFrame
@@ -63,6 +67,21 @@ class EffectsPanel: UIView {
             reverbButton.heightAnchor.constraint(equalToConstant: self.frame.width / 5)
         ])
         
+        
+        
+        pitchShifterButton.setTitle("Pitch", for: .normal)
+        pitchShifterButton.backgroundColor = .systemTeal
+        pitchShifterButton.setTitleColor(.black, for: .normal)
+        pitchShifterButton.layer.borderColor = UIColor.systemBlue.cgColor
+        pitchShifterButton.layer.borderWidth = 5
+        pitchShifterButton.addTarget(self, action: #selector(pitchShifterButtonTapped), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            pitchShifterButton.topAnchor.constraint(equalTo: reverbButton.bottomAnchor, constant: 40),
+            pitchShifterButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            pitchShifterButton.widthAnchor.constraint(equalToConstant: self.frame.width / 5),
+            pitchShifterButton.heightAnchor.constraint(equalToConstant: self.frame.width / 5)
+        ])
         
         
 //        let delayFrame = CGRect(x: ( self.frame.midX / 2 ) + (2 * (self.frame.width / 5)), y: 20, width: self.frame.width / 5, height: self.frame.width / 5)
@@ -105,6 +124,28 @@ class EffectsPanel: UIView {
             self.layoutIfNeeded()
         }
         
+    }
+    
+    @objc func pitchShifterButtonTapped() {
+        pitchShiftView = PitchShiftView()
+         pitchShiftView.isHidden = false
+       
+         addSubview(pitchShiftView)
+         self.pitchShiftView.translatesAutoresizingMaskIntoConstraints = false
+         pitchShiftView.frame = pitchShifterButton.frame
+         pitchShiftView.preset = preset
+         pitchShiftView.delegate = pitchShiftDelegate
+         
+         UIView.animate(withDuration: 0.3) {
+
+             NSLayoutConstraint.activate([
+                 self.pitchShiftView.topAnchor.constraint(equalTo: self.topAnchor),
+                 self.pitchShiftView.widthAnchor.constraint(equalToConstant: self.frame.width),
+                 self.pitchShiftView.heightAnchor.constraint(equalToConstant: self.frame.height)
+             ])
+             self.layoutIfNeeded()
+         }
+    
     }
 
     @objc func reverbButtonTapped() {

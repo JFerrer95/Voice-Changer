@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FEE8B81C7EFBCF6704E9482 /* Pods_Fenamenal_Voice_Changer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFC50A43B30A5C04B68F1ADE /* Pods_Fenamenal_Voice_Changer.framework */; };
+		D100834A24184ED70078834F /* PitchShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100834924184ED70078834F /* PitchShiftView.swift */; };
 		D10B754323FCCCEA00870BD2 /* RecordAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B754223FCCCEA00870BD2 /* RecordAudioViewController.swift */; };
 		D14A8D1A23FC8A9600DD5AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14A8D1923FC8A9600DD5AF2 /* AppDelegate.swift */; };
 		D14A8D1C23FC8A9600DD5AF2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14A8D1B23FC8A9600DD5AF2 /* SceneDelegate.swift */; };
@@ -26,6 +27,7 @@
 		242B9B745D108F141BF72FE9 /* Pods-Fenamenal Voice Changer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fenamenal Voice Changer.release.xcconfig"; path = "Target Support Files/Pods-Fenamenal Voice Changer/Pods-Fenamenal Voice Changer.release.xcconfig"; sourceTree = "<group>"; };
 		9B238FB03BB3CEA4658C7C1F /* Pods-Fenamenal Voice Changer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fenamenal Voice Changer.debug.xcconfig"; path = "Target Support Files/Pods-Fenamenal Voice Changer/Pods-Fenamenal Voice Changer.debug.xcconfig"; sourceTree = "<group>"; };
 		AFC50A43B30A5C04B68F1ADE /* Pods_Fenamenal_Voice_Changer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fenamenal_Voice_Changer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D100834924184ED70078834F /* PitchShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftView.swift; sourceTree = "<group>"; };
 		D10B754223FCCCEA00870BD2 /* RecordAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordAudioViewController.swift; sourceTree = "<group>"; };
 		D14A8D1623FC8A9600DD5AF2 /* Fenamenal Voice Changer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fenamenal Voice Changer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D14A8D1923FC8A9600DD5AF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				D16ADF732404E1D700D3CE6D /* EffectsPanel.swift */,
 				D1E9CD8E240F4D38001C7660 /* DelayView.swift */,
+				D100834924184ED70078834F /* PitchShiftView.swift */,
 				D16B1D4624064A7F00327270 /* ReverbView.swift */,
 				D162E49623FF93EA004B41F3 /* Knob.swift */,
 				D1E9CD8C240E285F001C7660 /* ReverbTableViewCell.swift */,
@@ -246,6 +249,7 @@
 				D14A8D1C23FC8A9600DD5AF2 /* SceneDelegate.swift in Sources */,
 				D1E9CD8D240E285F001C7660 /* ReverbTableViewCell.swift in Sources */,
 				D10B754323FCCCEA00870BD2 /* RecordAudioViewController.swift in Sources */,
+				D100834A24184ED70078834F /* PitchShiftView.swift in Sources */,
 				D16ADF742404E1D700D3CE6D /* EffectsPanel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

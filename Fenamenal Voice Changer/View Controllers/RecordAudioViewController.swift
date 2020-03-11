@@ -30,6 +30,7 @@ class RecordAudioViewController: UIViewController{
     var micBooster: AKBooster!
     var reverb: AKReverb!
     var delay: AKDelay!
+    var pitchShifter: AKPitchShifter!
     var mainMixer: AKMixer!
     var didPlay = false
 
@@ -88,7 +89,10 @@ class RecordAudioViewController: UIViewController{
         reverb.stop()
         delay = AKDelay(reverb)
         delay.stop()
-        mainMixer = AKMixer(delay, micBooster)
+        
+        pitchShifter = AKPitchShifter(delay)
+        pitchShifter.stop()
+        mainMixer = AKMixer(pitchShifter, micBooster)
 
         AudioKit.output = mainMixer
         do {
@@ -188,6 +192,7 @@ class RecordAudioViewController: UIViewController{
             self.effectsPanel.reverbDelegate = self
             self.effectsPanel.reverbView.delegate = self
             self.effectsPanel.delayDelegate = self
+            self.effectsPanel.pitchShiftDelegate = self
             self.view.layoutIfNeeded()
             
         })
@@ -216,12 +221,32 @@ class RecordAudioViewController: UIViewController{
         if !effectsPanel.frame.contains(location) {
             effectsPanel.reverbView.isHidden = true
             effectsPanel.delayView.isHidden = true
+            effectsPanel.pitchShiftView.isHidden = true
         }
           
     }
 
 
 
+}
+
+extension RecordAudioViewController: PitchShiftDelegate {
+    func pitchShiftAmount(semitones: Double) {
+        if preset.pitchShift.isActive == true {
+            pitchShifter.shift = semitones
+        }
+    }
+    
+    func pitchShiftEnableToggle() {
+        if preset.pitchShift.isActive == true {
+            pitchShifter.bypass()
+            
+        } else {
+            pitchShifter.start()
+        }
+    }
+    
+    
 }
 
 extension RecordAudioViewController: DelayDelegate {

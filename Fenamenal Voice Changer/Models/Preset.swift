@@ -12,18 +12,34 @@ import AudioKit
 class Preset {
     var reverb: Reverb
     var delay: Delay
+    var pitchShift: PitchShift
     init() {
         reverb = Reverb()
         delay = Delay()
+        pitchShift = PitchShift()
     }
 
 }
 
+class PitchShift {
+    var isActive: Bool
+    var shift: Double
+    
+    init(isActive: Bool = false, shift: Double = 0.0) {
+        self.isActive = isActive
+        self.shift = shift
+    }
+}
+
 class Delay {
     var isActive: Bool
+    var time: Double
+    var dryWet: Double
     
-    init(isActive: Bool = false) {
+    init(isActive: Bool = false, time: Double = 1.0, dryWet: Double = 0.5) {
         self.isActive = isActive
+        self.time = time
+        self.dryWet = dryWet
     }
 }
 

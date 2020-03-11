@@ -91,10 +91,13 @@ class DelayView: UIView {
     
     func timeSliderChanged(value: Double) {
         delegate?.delayTimeChanged(value: value)
+        preset?.delay.time = value
+        
     }
     
     func dryWetSliderChanged(value: Double) {
         delegate?.delayDryWetChanged(value: value)
+        preset?.delay.dryWet = value
     }
     
     
